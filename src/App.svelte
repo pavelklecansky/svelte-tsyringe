@@ -1,5 +1,6 @@
 <script lang="ts">
   import Dog from "./Dog.svelte";
+  let dog;
 </script>
 
 <svelte:head>
@@ -7,8 +8,9 @@
 </svelte:head>
 
 <main>
-  <h1>Cute dogs</h1>
-  <Dog />
+  <h1>Cute doggo</h1>
+  <Dog bind:this={dog} />
+  <button on:click={() => dog.changeDogImage()}>New cute doggo 🐕</button>
 </main>
 
 <style>
