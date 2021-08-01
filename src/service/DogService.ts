@@ -1,5 +1,4 @@
 import { singleton } from "tsyringe";
-
 @singleton()
 export class DogService {
   async getRandomDog() {

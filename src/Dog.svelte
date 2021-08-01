@@ -2,8 +2,24 @@
   import "reflect-metadata";
   import { container } from "tsyringe";
   import { DogService } from "./service/DogService";
+  import { onMount } from "svelte";
+
   let dogService = container.resolve(DogService);
-  let promise = dogService.getRandomDog();
+
+  // Don't onMount isn't enough but ok
+  let promise = loadDogImage();
+
+  onMount(async () => {
+    promise = loadDogImage();
+  });
+
+  async function loadDogImage() {
+    return dogService.getRandomDog();
+  }
+
+  export function changeDogImage() {
+    promise = loadDogImage();
+  }
 </script>
 
 {#await promise}
@@ -13,3 +29,10 @@
 {:catch error}
   <p style="color: red">{error.message}</p>
 {/await}
+
+<style>
+  img {
+    width: 100%;
+    z-index: 0;
+  }
+</style>
